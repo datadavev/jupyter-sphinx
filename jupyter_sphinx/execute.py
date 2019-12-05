@@ -283,7 +283,7 @@ class ThebeSourceNode(docutils.nodes.container):
         if self['code_below']:
             code_class += ' thebelab-below'
         if self['run_ready']:
-            code_class += ' thebelab-init
+            code_class += ' thebelab-init'
         language = self['language']
         return '<div class="{}" data-executable="true" data-language="{}">'\
                .format(code_class, language)
