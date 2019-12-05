@@ -142,6 +142,7 @@ class JupyterCell(Directive):
         then the traceback is printed in place of the cell output. If an
         exception of another type is raised then we raise a RuntimeError
         when executing.
+    id : Adds id to the cell.
 
     Content
     -------
@@ -161,6 +162,7 @@ class JupyterCell(Directive):
         'linenos': directives.flag,
         'raises': csv_option,
         'stderr': directives.flag,
+        'run-ready': directives.flag,
     }
 
     def run(self):
@@ -196,6 +198,7 @@ class JupyterCell(Directive):
             linenos=('linenos' in self.options),
             raises=self.options.get('raises'),
             stderr=('stderr' in self.options),
+            run_ready=('run-ready' in self.options),
         )]
 
 
@@ -279,6 +282,8 @@ class ThebeSourceNode(docutils.nodes.container):
             code_class += ' thebelab-hidden'
         if self['code_below']:
             code_class += ' thebelab-below'
+        if self['run_ready']:
+            code_class += ' thebelab-init
         language = self['language']
         return '<div class="{}" data-executable="true" data-language="{}">'\
                .format(code_class, language)
